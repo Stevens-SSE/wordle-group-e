@@ -27,6 +27,7 @@ class WordleGame():
             print("You have used guesses:-", num_of_guesses)
             print("Game Over Better luck Next Time...")
         total_game_played=1
+        #logic for stataticals
         while True:        
             ROOT = tk.Tk()
             ROOT.withdraw()
@@ -93,12 +94,14 @@ class WordleGame():
         logger.info('Your guessing percentage:-'+str(distribution))
         return clue == "GGGGG" #True if correct,False otherwie
 
+#verifies the word is valid or not which is guessed by user
     def verifyGuess(self,theGuess):
         if(len(theGuess) > 5 ):
             return theGuess[:5].strip()
         else:
             return theGuess
 
+#module for finding words which are similars to guessed word
     def find_similar_words(self,hint,clue,pos,theAnswer):
         array_hintt=[]
         array_hint=hint.split()
@@ -140,11 +143,13 @@ class WordleGame():
         wordList.close()
 
     def giveHint(self,answer):
+        #will gives hint to user
         first_letter=answer[0]
         last_letter=answer[4]
         print('First Letter is :-'+first_letter)
         print('Last Letter is :-' +last_letter)
         
+#Main logic of the code and where all activity starts from
     def logicCode(self):
         #words=[]
         p=os.path.getsize("demo.txt")
