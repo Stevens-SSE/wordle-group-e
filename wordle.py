@@ -33,12 +33,7 @@ class WordleGame():
             ROOT.withdraw()
             playAgain=messagebox.askquestion("Confirm","Do You Want To Play Again?")  
             messagebox_info=["No of Game Played: "+str(total_game_played),"Your Staticals of Game","1st Attempt: "+str(staticals_list[0]),"2nd Attempt: "+str(staticals_list[1]),"3rd Attempt: "+str(staticals_list[2]),"4th Attempt: "+str(staticals_list[3]),"5th Attempt: "+str(staticals_list[4]),"6th Attempt: "+str(staticals_list[5])]
-            staticals_list.pop(0)
-            staticals_list.pop(0)
-            staticals_list.pop(0)
-            staticals_list.pop(0)
-            staticals_list.pop(0)
-            staticals_list.pop(0)
+            staticals_list[5:]
             logger.info(messagebox_info)
             if playAgain == 'yes':
                 total_game_played+=1
@@ -55,22 +50,20 @@ class WordleGame():
 
     def word_fetch(self):
         try:
-            a = open("demo.txt", "w")
-            f = open("words.txt", "r")
-            for x in f:
+            word_list = open("demo.txt", "w")
+            main_word_list = open("words.txt", "r")
+            for x in main_word_list:
                 if(len(x)==6):
-                    a.write(x)
+                    word_list.write(x)
         except IOError:
             print("File not accessible")
-        a.close()
-        f.close()
+        word_list.close()
+        main_word_list.close()
 
 
     def processGuess(self,theAnswer, theGuess):
         position=0
-        clue=""
-        hint=""
-        pos=""
+        clue,hint,pos="","",""
         distribution=0
         for letter in theGuess:
             if letter == theAnswer[position]:
@@ -111,7 +104,6 @@ class WordleGame():
         linked_list = collections.deque()
         line_count=0
         if(hint!=""):
-            print(len(hint))
             wordList=open("demo.txt", "r+")
             lines = wordList.read().splitlines()
             for line in lines:

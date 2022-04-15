@@ -69,8 +69,8 @@ def statisticsOfLetter():
     rank={}
     try:
         #here we fetch each word and calculating its statistics
-        a = open("demo.txt", "r")
-        for x in a:
+        word_list = open("demo.txt", "r")
+        for x in word_list:
             count+=1
             for item in x:
                 res=[i.start() for i in re.finditer(item,x)]
@@ -92,7 +92,7 @@ def statisticsOfLetter():
                     freq[item]=[0,0,0,0,0]
     except IOError:
         print("File not accessible")
-    a.close()
+    word_list.close()
     for key,value in freq.items():
         oitem=[]
         ritem=value
@@ -100,7 +100,6 @@ def statisticsOfLetter():
             oitem.append(item/count)
         rank[key]=oitem
     sorted_list = sorted(freq.items(), key=lambda x:x[1])
-    print(sorted_list)
     filename = "letterFrequency.csv"
     with open(filename, 'w') as csv_file:  
         writer = csv.writer(csv_file)
@@ -118,7 +117,6 @@ def statisticsOfLetter():
 def listOfTuples(freq):
     tupleDict={}
     for key, value in freq.items():
-        tuple(value)
         tupleDict[key]=tuple(value)
     print(tupleDict)
 
