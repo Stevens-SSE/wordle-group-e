@@ -16,15 +16,18 @@ class Dictionary:
 
 # this function was used to read words from the .txt file
     def file_reader(self):
-        self.words.clear()
-        path = os.getcwd()+"/words.txt"
-        f = open(path, "r")
-        data = f.read().splitlines()
-        for word in data:
-            if len(word) == 5:
-                self.words.append(word)
-        f.close()
-        return self.words
+        try:
+            self.words.clear()
+            path = os.getcwd()+"/words.txt"
+            f = open(path, "r")
+            data = f.read().splitlines()
+            for word in data:
+                if len(word) == 5:
+                    self.words.append(word)
+            f.close()
+            return self.words
+        except Exception as e:
+            print(f"Error: {e}")
 
 # this is used to pick a random word from the list of words
     def word_picker(self, used_words):

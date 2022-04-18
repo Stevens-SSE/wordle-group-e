@@ -26,7 +26,6 @@ class Helper:
         try:
             with open(src_file_location, 'r') as f:
                 r = reader(f)
-                # print(r)
                 list_of_rows = list(r)
                 self.words.append(list_of_rows)
                 self.words = [word[1] for word in list_of_rows]

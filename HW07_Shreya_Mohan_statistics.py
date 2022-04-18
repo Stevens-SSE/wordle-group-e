@@ -44,14 +44,17 @@ class Statistics:
 
 # converting csv file words to dictionary
     def csv_to_dict(self, filename):
-        letters = {}
+        try:
+            letters = {}
 
-        with open(filename, mode='r') as csv_file:
-            reader = csv.reader(csv_file)
-            letters = {rows[0]: [rows[1], rows[2], rows[3],
-                                 rows[4], rows[5]] for rows in reader}
+            with open(filename, mode='r') as csv_file:
+                reader = csv.reader(csv_file)
+                letters = {rows[0]: [rows[1], rows[2], rows[3],
+                                     rows[4], rows[5]] for rows in reader}
 
-        return letters
+            return letters
+        except Exception as e:
+            print(f"Error: {e}")
 
 # ranking words from most probable to least probable in wordRank.csv
     def word_ranking(self):
@@ -67,10 +70,10 @@ class Statistics:
                 for i, letter in enumerate(word):
                     prod *= float(letters[letter][i])
                 ranks[word] = f"{prod:.14f}"
-
+        # to sort all input
             sorted_list = sorted(
                 ranks.items(), key=lambda x: x[1], reverse=True)
-
+        # to open file and write sorted list
             with open('wordRank.csv', 'w') as f:
                 writer = csv.writer(f)
                 for i, row in enumerate(sorted_list):
