@@ -8,7 +8,6 @@ class Statistics():
         
     def readWordsFive(self):
         try:
-            # path = os.path.abspath("../../src/resources/FiveLtterWord.txt")
             words = open(self.path+"/FiveLtterWord.txt", "r").read().split()
             return words
         except:
@@ -35,7 +34,6 @@ class Statistics():
                 v = [ x/noOfWords for x in v ]
                 letterFreqDict[k] = v
             
-            # path = os.path.abspath("../../src/resources/")
             f = open(self.path+"/letterFrequency.csv", "w")
             for k,v in letterFreqDict.items():
                 f.write("%s,%s\n"%(k,v))
@@ -73,7 +71,6 @@ class Statistics():
     def wordRank(self, freqLetter):
         try:
             wordRanks = dict()
-            # words = dictionary.readDictWordsFive()
             words = self.readWordsFive()
             for word in words:
                 wordLetters = list(word)
@@ -84,7 +81,6 @@ class Statistics():
                 wordRanks[word] = prodVal;
             
             sortedList = dict(sorted(wordRanks.items(), key=lambda x:x[1], reverse=True))
-            # path = os.path.abspath("../../src/resources/")
             f = open(self.path+"/wordRank.csv", "w")
             count = 1
             for k,v in sortedList.items():
@@ -96,12 +92,3 @@ class Statistics():
         except:
             print("Error:", sys.exc_info()[0], " in wordRank, statistics module, occurred.".__str__())
     
-    
-          
-    # letterFreqDictRes = letterFreq()  
-    # convertLetterFreqDictRes = convertListToTuple(letterFreqDictRes.copy())
-    # print('Convert dictionary of lists into a dictionary of tuples - 2: ',convertLetterFreqDictRes)
-    # print('Dictionary of lists: ',letterFreqDictRes)
-    # freqDictTupleParseRes = writeTupleDictInFile()
-    # print('Parse the statistics file into a dictionary of tuples - 3: ',freqDictTupleParseRes)
-    # wordRankRes = wordRank(letterFreqDictRes)
