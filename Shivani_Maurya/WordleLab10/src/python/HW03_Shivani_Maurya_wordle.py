@@ -36,6 +36,9 @@ class Wordle():
     def __str__(self):
         return self
     
+    ''' 
+    This function creates a list of possible wordle words
+    '''
     def wordHelper(self, badWordSet, greenLetters, yellowLetters):
         try:
             hintWords = set()
@@ -52,10 +55,6 @@ class Wordle():
                         vals = list()
                         vals.append(idx)
                         greenLetters.update({helperWord: vals})
-                # elif resWord == '`':
-                #     # if helperWord in badWordSet:
-                #     badWordSet.discard(helperWord)
-                #     yellowLetters.add(helperWord)
                 elif resWord == '`':
                     badWordSet.discard(helperWord)
                     if greenLetters.get(helperWord) is None or idx not in greenLetters.get(helperWord):
@@ -70,17 +69,12 @@ class Wordle():
                             yellowLetters.update({helperWord: vals})
                 elif resWord == '"' and yellowLetters.get(helperWord) is None and greenLetters.get(helperWord) is None: 
                     badWordSet.add(helperWord)
-                # elif resWord == '"' and helperWord not in yellowLetters and greenLetters.get(helperWord) is None: 
-                #     badWordSet.add(helperWord)
         
             fiveLetterWords = self.u.readWordRankFile()
         
             greenValCount = 0
             for idxListVal in greenLetters.values():
                 greenValCount += len(idxListVal)
-            # yellowValCount = 0
-            # for idxListVal in yellowLetters.values():
-            #     yellowValCount += len(idxListVal)
                 
             for fiveLetWordRank in fiveLetterWords:
                 fiveLet = fiveLetWordRank.split(',')
@@ -94,8 +88,6 @@ class Wordle():
                     print("debug")
                 for letter, idxList in greenLetters.items():
                     if letter in fiveLetWord:
-                         # and fiveLetWord[idxList] == letter 
-                         # (fiveLetWord.index(letter) in idxList or fiveLetWord[idxList] == letter)
                         for i in idxList:
                             if fiveLetWord[i] == letter:
                                 greenCount += 1
@@ -103,9 +95,6 @@ class Wordle():
                 for letter, idxList in yellowLetters.items():
                     if letter in fiveLetWord and fiveLetWord.index(letter) not in idxList :
                         goodCount += 1
-                # for letter in yellowLetters:
-                #     if letter in fiveLetWord:
-                #         goodCount += 1
                 for letter in badWordSet:
                     if letter not in fiveLetWord:
                         badCount += 1
@@ -124,9 +113,11 @@ class Wordle():
             print(sys.exc_info())
             print("Error:", sys.exc_info()[0], " in wordHelper method, Wordle Module, occurred.".__str__())
 
+    '''
+    This function assigns color to each letter
+    '''
     def wordleFunc(self, badWordSet, greenLetters, yellowLetters):
         try:
-            # result = ['"','"','"','"','"']
 
             k = 0
             for inWord, outWord in zip(self.inputWordList, self.wordleWordList):
